@@ -1,0 +1,14 @@
+<?php
+
+use \mageekguy\atoum;
+
+$script->addTestsFromDirectory(__DIR__ . '/tests/Units');
+
+$script->addDefaultReport();
+
+$cloverWriter = new atoum\writers\file('coverage.clover');
+
+$cloverReport = new atoum\reports\asynchronous\clover();
+$cloverReport->addWriter($cloverWriter);
+
+$runner->addReport($cloverReport);
