@@ -16,8 +16,7 @@ class ElasticsearchExtraBundle extends atoum
         $this
             ->if($this->newTestedInstance)
             ->then
-                ->object($this->testedInstance)
-                   ->isTestedInstance()
+                ->object($this->testedInstance)->isTestedInstance()
         ;
     }
 }
