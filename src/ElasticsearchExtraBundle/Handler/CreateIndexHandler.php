@@ -45,7 +45,7 @@ class CreateIndexHandler
         $client = $this->clientRepository->get($clientId);
         $config = $this->configurationRepository->get($clientId, $indexId);
 
-        if (null == $client || null == $config) {
+        if (null === $client || null === $config) {
             throw new \InvalidArgumentException();
         }
 
