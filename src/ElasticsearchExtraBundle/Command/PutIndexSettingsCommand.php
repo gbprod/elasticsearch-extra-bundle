@@ -9,17 +9,17 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Command to create index
+ * Command to put index settings
  * 
  * @author gbprod <contact@gb-prod.fr>
  */
-class CreateIndexCommand extends ContainerAwareCommand
+class PutIndexSettingsCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('elasticsearch:index:create')
-            ->setDescription('Create index from configuration')
+            ->setName('elasticsearch:index:put_settings')
+            ->setDescription('Put index settings from configuration')
             ->addArgument(
                 'client_id',
                 InputArgument::REQUIRED,
@@ -39,14 +39,14 @@ class CreateIndexCommand extends ContainerAwareCommand
         $indexId  = $input->getArgument('index_id');
         
         $output->writeln(sprintf(
-            '<info>Creating index <comment>%s</comment> for client <comment>%s</comment>...</info>',
+            '<info>Put index <comment>%s</comment> settings for client <comment>%s</comment>...</info>',
             $indexId,
             $clientId
         ));
         
         $handler = $this
             ->getContainer()
-            ->get('gbprod.elasticsearch_extra.create_index_handler')
+            ->get('gbprod.elasticsearch_extra.put_index_settings_handler')
         ;
         
         $handler->handle($clientId, $indexId);

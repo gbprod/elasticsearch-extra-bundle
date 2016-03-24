@@ -54,7 +54,7 @@ class DeleteIndexCommand extends ContainerAwareCommand
         $indexId  = $input->getArgument('index_id');
         
         $output->writeln(sprintf(
-            '<info>Deleting index "%s" for client "%s"...</info>',
+            '<info>Deleting index <comment>%s</comment> for client <comment>%s</comment>...</info>',
             $indexId,
             $clientId
         ));
@@ -66,7 +66,7 @@ class DeleteIndexCommand extends ContainerAwareCommand
         
         $handler->handle($clientId, $indexId);
         
-        $output->writeln('<info>done</info>');
+        $output->writeln('done');
     }
     
     private function displayWarningMassage(InputInterface $input, OutputInterface $output)
