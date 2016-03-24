@@ -1,0 +1,6 @@
+services:
+    gbprod.elasticsearch_extra.create_index_handler:
+        class: GBProd\ElasticsearchExtraBundle\Handler\CreateIndexHandler
+        arguments:
+            - "@gbprod.elasticsearch_extra.client_repository"
+            - "@gbprod.elasticsearch_extra.index_configuration_repository"

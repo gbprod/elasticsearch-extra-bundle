@@ -39,7 +39,6 @@ elasticsearch_extra:
     my_client:
         indices:
             my_index_1:
-                body:
                 settings:
                     number_of_shards: 3
                     number_of_replicas: 2
@@ -65,5 +64,5 @@ See [Official documentation](https://www.elastic.co/guide/en/elasticsearch/clien
 ### Create index
 
 ```bash
-php app/console elasticsearch:create_index [my_client] my_index_1
+php app/console elasticsearch:create_index my_client my_index_1
 ```

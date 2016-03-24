@@ -14,7 +14,6 @@ class Configuration extends atoum
 {
     public function testEmptyConfiguration()
     {
-        
         $this
             ->given($this->newTestedInstance)
             ->and($config = [])
@@ -39,23 +38,67 @@ class Configuration extends atoum
 
     public function testEmptyIndicesConfiguration()
     {
-        
         $this
             ->given($this->newTestedInstance)
             ->and($config = [
-                'clients' => [
-                    'my_client' => [
-                        'indices' => [],
-                    ],
+                [
+                    'clients' => [
+                        'my_client' => [
+                        ],                        
+                        'my_client_2' => [
+                        ],
+                    ]
                 ]
             ])
             ->if($processed = $this->process($config))
             ->then
-                ->array($processed)
-                    ->hasKey('clients')
                 ->array($processed['clients'])
                     ->isNotEmpty()
+                    ->hasKey('my_client')
+                ->array($processed['clients']['my_client'])
+                    ->hasKey('indices')
+                ->array($processed['clients']['my_client']['indices'])
+                    ->isEqualTo([])
         ;
     }
-    
+ 
+ 
+    public function testIndexIsVariable()
+    {
+        $this
+            ->given($this->newTestedInstance)
+            ->and($config = [
+                [
+                    'clients' => [
+                        'my_client' => [
+                            'indices' => [
+                                'index_1' => [
+                                    'foo' => [
+                                        'bar',
+                                    ],
+                                ],
+                                'index_2' => [
+                                    'fizz' => [
+                                    ],
+                                    'mapping' => [
+                                    ],
+                                ],
+                            ]
+                        ],
+                    ]
+                ]
+            ])
+            ->if($processed = $this->process($config))
+            ->then
+                ->array($processed['clients']['my_client']['indices'])
+                    ->hasKey('index_1')
+                ->array($processed['clients']['my_client']['indices']['index_1'])
+                    ->isEqualTo([
+                            'foo' => [
+                                'bar',
+                            ],
+                        ]
+                    )
+        ;
+    }
 }

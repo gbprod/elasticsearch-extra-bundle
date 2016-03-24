@@ -19,21 +19,26 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('elasticsearch_extra_bundle');
-        
+
         $rootNode
             ->children()
-                ->scalarNode('default_client')->end()
                 ->arrayNode('clients')
                     ->useAttributeAsKey('id')
                     ->prototype('array')
-                    ->children()
-                        ->arrayNode('indices')
-                            ->prototype('variable')->end()
+                        ->children()
+                            ->arrayNode('indices')
+                                ->defaultValue([])
+                                ->prototype('array')
+                                    ->prototype('variable')->end()
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
             ->end()
         ;
+
         return $treeBuilder;
     }
 }
+    
