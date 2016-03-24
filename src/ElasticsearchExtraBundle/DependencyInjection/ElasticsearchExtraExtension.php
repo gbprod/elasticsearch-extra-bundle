@@ -60,16 +60,16 @@ class ElasticsearchExtraExtension extends Extension
     
     private function getClientsReferences(array $config)
     {
-        return array_map(
-            function($clientId) {
-                return new Reference(
-                    sprintf(
-                        'm6web_elasticsearch.client.%s',
-                        $clientId
-                    )
-                );
-            },
-            array_keys($config['clients'])
-        );
+        $clients = [];
+        foreach(array_keys($config['clients']) as $clientId) {
+            $clients[$clientId] = new Reference(
+                sprintf(
+                    'm6web_elasticsearch.client.%s',
+                    $clientId
+                )
+            );
+        }
+        
+        return $clients;   
     }
 }

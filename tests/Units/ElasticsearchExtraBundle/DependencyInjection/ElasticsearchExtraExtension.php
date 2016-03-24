@@ -104,13 +104,13 @@ class ElasticsearchExtraExtension extends atoum
                         ->getArgument(0)
                     )
                     ->isNotEmpty()
-                ->object($argument[0])
+                ->object($argument['my_client'])
                     ->isInstanceOf(Reference::class)
-                ->string($argument[0]->__toString())
+                ->string($argument['my_client']->__toString())
                     ->isEqualTo('m6web_elasticsearch.client.my_client')
-                ->object($argument[1])
+                ->object($argument['my_client_2'])
                     ->isInstanceOf(Reference::class)
-                ->string($argument[1]->__toString())
+                ->string($argument['my_client_2']->__toString())
                     ->isEqualTo('m6web_elasticsearch.client.my_client_2')
         ;
     }

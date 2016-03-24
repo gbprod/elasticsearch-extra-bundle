@@ -52,7 +52,7 @@ elasticsearch_extra:
                         _source:
                             enabled: true
                         properties:
-                            first_name
+                            first_name:
                                 type: string
                                 analyzer: standard
                             age:
