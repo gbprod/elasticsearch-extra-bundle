@@ -18,7 +18,7 @@ class CreateIndexCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('elasticsearch:create_index')
+            ->setName('elasticsearch:index:create')
             ->setDescription('Create index from configuration')
             ->addArgument(
                 'client_id',
@@ -39,7 +39,7 @@ class CreateIndexCommand extends ContainerAwareCommand
         $indexId  = $input->getArgument('index_id');
         
         $output->writeln(sprintf(
-            'Creating index "%s" for client "%s"...',
+            '<info>Creating index "%s" for client "%s"...</info>',
             $indexId,
             $clientId
         ));
@@ -51,6 +51,6 @@ class CreateIndexCommand extends ContainerAwareCommand
         
         $handler->handle($clientId, $indexId);
         
-        $output->writeln('Done');
+        $output->writeln('<info>done</info>');
     }
 }

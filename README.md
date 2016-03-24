@@ -69,5 +69,37 @@ See [Official documentation](https://www.elastic.co/guide/en/elasticsearch/clien
 ### Create index
 
 ```bash
-php app/console elasticsearch:create_index my_client my_index_1
+php app/console elasticsearch:index:create my_client my_index_1
+```
+
+### Delete index
+
+```bash
+php app/console elasticsearch:index:delete my_client my_index_1 --force
+```
+
+# TODO
+
+### Put index settings
+
+```bash
+php app/console elasticsearch:index:put_settings my_client my_index_1
+```
+
+### Put index mappings
+
+```bash
+php app/console elasticsearch:index:put_mappings my_client my_index_1
+```
+
+### Get index settings
+
+```bash
+php app/console elasticsearch:index:get_settings my_client my_index_1
+```
+
+### Get index mappings
+
+```bash
+php app/console elasticsearch:index:get_mappings my_client my_index_1
 ```
