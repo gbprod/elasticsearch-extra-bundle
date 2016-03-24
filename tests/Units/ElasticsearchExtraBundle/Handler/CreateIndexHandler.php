@@ -76,7 +76,9 @@ class CreateIndexHandler extends atoum
                 return null;
             }
         ;
-        
+
+        $this->mockGenerator->unshuntParentClassCalls();
+
         return $clientRepository;
     }
     
@@ -96,6 +98,8 @@ class CreateIndexHandler extends atoum
                 return null;
             }
         ;
+
+        $this->mockGenerator->unshuntParentClassCalls();
         
         return $configRepository;
     }

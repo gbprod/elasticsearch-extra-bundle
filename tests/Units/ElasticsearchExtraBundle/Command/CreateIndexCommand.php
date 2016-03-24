@@ -43,6 +43,8 @@ class CreateIndexCommand extends atoum
         
         $handler = new CreateIndexHandler();
         
+        $this->mockGenerator->unshuntParentClassCalls();
+        
         return $handler;
     }
     

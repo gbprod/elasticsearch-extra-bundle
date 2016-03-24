@@ -30,7 +30,11 @@ class ClientRepository extends atoum
         $this->mockGenerator->shuntParentClassCalls();
         $this->mockGenerator->orphanize('__construct');
 
-        return new Client();
+        $client = new Client();
+        
+        $this->mockGenerator->unshuntParentClassCalls();
+    
+        return $client;
     }
     
     public function testGetReturnsNullIfNotSets()
