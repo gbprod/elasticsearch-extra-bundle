@@ -54,7 +54,11 @@ class ElasticsearchExtraExtension extends atoum
             ->given($extension = $this->newTestedInstance)
             ->if($extension->load($configs, $container))
             ->then
-                ->array($container->getDefinition('gbprod.elasticsearch_extra.index_configuration_repository')->getArgument(0))
+                ->array(
+                    $container
+                    ->getDefinition('gbprod.elasticsearch_extra.index_configuration_repository')
+                    ->getArgument(0)
+                )
                     ->isEqualTo([
                         'my_client' => [
                             'indices' => [
@@ -94,7 +98,11 @@ class ElasticsearchExtraExtension extends atoum
             ->given($extension = $this->newTestedInstance)
             ->if($extension->load($configs, $container))
             ->then
-                ->array($argument = $container->getDefinition('gbprod.elasticsearch_extra.client_repository')->getArgument(0))
+                ->array(
+                    $argument = $container
+                        ->getDefinition('gbprod.elasticsearch_extra.client_repository')
+                        ->getArgument(0)
+                    )
                     ->isNotEmpty()
                 ->object($argument[0])
                     ->isInstanceOf(Reference::class)

@@ -51,6 +51,6 @@ class CreateIndexCommand extends ContainerAwareCommand
         
         $handler->handle($clientId, $indexId);
         
-        $output->writeln("Done");
+        $output->writeln('Done');
     }
 }

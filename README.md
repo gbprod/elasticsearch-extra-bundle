@@ -4,6 +4,11 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/?branch=master)
 
+[![Latest Stable Version](https://poser.pugx.org/gbprod/elasticsearch-extra-bundle/v/stable)](https://packagist.org/packages/gbprod/elasticsearch-extra-bundle) 
+[![Total Downloads](https://poser.pugx.org/gbprod/elasticsearch-extra-bundle/downloads)](https://packagist.org/packages/gbprod/elasticsearch-extra-bundle) 
+[![Latest Unstable Version](https://poser.pugx.org/gbprod/elasticsearch-extra-bundle/v/unstable)](https://packagist.org/packages/gbprod/elasticsearch-extra-bundle) 
+[![License](https://poser.pugx.org/gbprod/elasticsearch-extra-bundle/license)](https://packagist.org/packages/gbprod/elasticsearch-extra-bundle)
+
 Extra tools for [m6web/elasticsearch-bundle](https://github.com/M6Web/ElasticsearchBundle).
 
 ## Installation

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a11c2d42a47ac8118ba404cbb0aa683e",
-    "content-hash": "2bed094bfd112d0d9ea0e420d5cbb1f8",
+    "hash": "de077f3dac16967bd7e42572a15378d5",
+    "content-hash": "26525e3182b8f599a1e14dfe58ff01d3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -356,7 +356,7 @@
         },
         {
             "name": "m6web/elasticsearch-bundle",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/M6Web/ElasticsearchBundle.git",
@@ -1980,11 +1980,11 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "m6web/elasticsearch-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.5"
+    },
     "platform-dev": []
 }

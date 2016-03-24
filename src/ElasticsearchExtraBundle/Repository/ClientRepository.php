@@ -29,7 +29,7 @@ class ClientRepository
      * 
      * @param string $id
      * 
-     * @return Elasticsearch\Client
+     * @return null|Client
      */
     public function get($id)
     {
