@@ -41,27 +41,28 @@ Set indices setup
 
 ```yaml
 elasticsearch_extra:
-    my_client:
-        indices:
-            my_index_1:
-                settings:
-                    number_of_shards: 3
-                    number_of_replicas: 2
-                mappings:
-                    my_type:
-                        _source:
-                            enabled: true
-                        properties:
-                            first_name:
-                                type: string
-                                analyzer: standard
-                            age:
-                                type: integer
-            my_index_2: ~
-    my_client_2:
-        indices:
-            my_index_3:
-            # ....
+    clients:
+        my_client:
+            indices:
+                my_index_1:
+                    settings:
+                        number_of_shards: 3
+                        number_of_replicas: 2
+                    mappings:
+                        my_type:
+                            _source:
+                                enabled: true
+                            properties:
+                                first_name:
+                                    type: string
+                                    analyzer: standard
+                                age:
+                                    type: integer
+                my_index_2: ~
+        my_client_2:
+            indices:
+                my_index_3:
+                # ....
 ```
 
 See [Official documentation](https://www.elastic.co/guide/en/elasticsearch/client/php-api/2.0/_index_management_operations.html) for options.
