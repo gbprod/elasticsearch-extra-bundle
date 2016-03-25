@@ -4,7 +4,7 @@
     "type": "bundle",
     "require": {
         "php": ">=5.5",
-        "m6web/elasticsearch-bundle": "dev-master",
+        "m6web/elasticsearch-bundle": "^1.0",
         "symfony/framework-bundle": "^2.3|^3.0",
         "symfony/console": "^2.3|^3.0",
         "symfony/yaml": "^2.3|^3.0"
