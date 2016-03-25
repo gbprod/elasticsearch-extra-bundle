@@ -3,23 +3,23 @@
 namespace GBProd\Tests\Units\ElasticsearchExtraBundle\Command;
 
 use atoum;
-use mock\GBProd\ElasticsearchExtraBundle\Handler\PutIndexSettingsHandler;
+use mock\GBProd\ElasticsearchExtraBundle\Handler\PutIndexMappingsHandler;
 use Symfony\Component\Console\Input\ArrayInput;
 use mock\Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Tests for PutIndexSettingsCommandœ
+ * Tests for PutIndexMappingsCommand
  * 
  * @author gbprod <contact@gb-prod.fr>
  */
-class PutIndexSettingsCommand extends atoum
+class PutIndexMappingsCommand extends atoum
 {
     public function testCreateIndexCallsHandler()
     {
         $this
             ->given($this->newTestedInstance)
-                ->and($handler = $this->newPutIndexSettingsHandler())
+                ->and($handler = $this->newPutIndexMappingsHandler())
                 ->and($container = $this->createContainer($handler))
                 ->and($this->testedInstance->setContainer($container))
                 ->and($input = new ArrayInput([
@@ -36,12 +36,12 @@ class PutIndexSettingsCommand extends atoum
         ;
     }
     
-    private function newPutIndexSettingsHandler()
+    private function newPutIndexMappingsHandler()
     {
         $this->mockGenerator->shuntParentClassCalls();
         $this->mockGenerator->orphanize('__construct');
         
-        $handler = new PutIndexSettingsHandler();
+        $handler = new PutIndexMappingsHandler();
         
         $this->mockGenerator->unshuntParentClassCalls();
         
@@ -52,7 +52,7 @@ class PutIndexSettingsCommand extends atoum
     {
         $container = new Container();
         $container->set(
-            'gbprod.elasticsearch_extra.put_index_settings_handler',
+            'gbprod.elasticsearch_extra.put_index_mappings_handler',
             $handler 
         );
         

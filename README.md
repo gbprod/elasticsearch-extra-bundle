@@ -31,7 +31,7 @@ public function registerBundles()
 }
 ```
 
-See [M6WebElasticsearchBundle](https://github.com/M6Web/ElasticsearchBundle] for configuring clients.
+See [M6WebElasticsearchBundle](https://github.com/M6Web/ElasticsearchBundle) for configuring clients.
 
 ## Index Management Operations
 
@@ -84,8 +84,8 @@ php app/console elasticsearch:index:delete my_client my_index_1 --force
 php app/console elasticsearch:index:put_settings my_client my_index_1
 ```
 
-# TODO
 
+# TODO
 ### Put index mappings
 
 ```bash
