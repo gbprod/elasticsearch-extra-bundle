@@ -84,22 +84,8 @@ php app/console elasticsearch:index:delete my_client my_index_1 --force
 php app/console elasticsearch:index:put_settings my_client my_index_1
 ```
 
-
-# TODO
 ### Put index mappings
 
 ```bash
 php app/console elasticsearch:index:put_mappings my_client my_index_1
-```
-
-### Get index settings
-
-```bash
-php app/console elasticsearch:index:get_settings my_client my_index_1
-```
-
-### Get index mappings
-
-```bash
-php app/console elasticsearch:index:get_mappings my_client my_index_1
 ```

@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * Extension class for ElasticsearchExtra bundle
- * 
+ *
  * @author gbprod <contact@gb-prod.fr>
  */
 class ElasticsearchExtraExtension extends Extension
@@ -27,14 +27,14 @@ class ElasticsearchExtraExtension extends Extension
         $this->createClientRepository($config, $container);
 
         $loader = new Loader\YamlFileLoader(
-            $container, 
-            new FileLocator(__DIR__.'/../Resources/config')
+            $container,
+            new FileLocator(__DIR__ . '/../Resources/config')
         );
-        
+
         $loader->load('services.yml');
     }
-    
-    private function createIndexConfigurationRepository(array $config, ContainerBuilder $container) 
+
+    private function createIndexConfigurationRepository(array $config, ContainerBuilder $container)
     {
         $container
             ->register(
@@ -44,8 +44,8 @@ class ElasticsearchExtraExtension extends Extension
             ->addArgument($config['clients'])
         ;
     }
-    
-    private function createClientRepository(array $config, ContainerBuilder $container) 
+
+    private function createClientRepository(array $config, ContainerBuilder $container)
     {
         $container
             ->register(
@@ -57,11 +57,11 @@ class ElasticsearchExtraExtension extends Extension
             )
         ;
     }
-    
+
     private function getClientsReferences(array $config)
     {
         $clients = [];
-        foreach(array_keys($config['clients']) as $clientId) {
+        foreach (array_keys($config['clients']) as $clientId) {
             $clients[$clientId] = new Reference(
                 sprintf(
                     'm6web_elasticsearch.client.%s',
@@ -69,7 +69,7 @@ class ElasticsearchExtraExtension extends Extension
                 )
             );
         }
-        
-        return $clients;   
+
+        return $clients;
     }
 }

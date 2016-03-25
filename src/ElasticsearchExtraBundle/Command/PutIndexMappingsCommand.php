@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Command to put index mappings
- * 
+ *
  * @author gbprod <contact@gb-prod.fr>
  */
 class PutIndexMappingsCommand extends ContainerAwareCommand
@@ -37,20 +37,20 @@ class PutIndexMappingsCommand extends ContainerAwareCommand
     {
         $clientId = $input->getArgument('client_id');
         $indexId  = $input->getArgument('index_id');
-        
+
         $output->writeln(sprintf(
             '<info>Put index <comment>%s</comment> settings for client <comment>%s</comment>...</info>',
             $indexId,
             $clientId
         ));
-        
+
         $handler = $this
             ->getContainer()
             ->get('gbprod.elasticsearch_extra.put_index_mappings_handler')
         ;
-        
+
         $handler->handle($clientId, $indexId);
-        
+
         $output->writeln('done');
     }
 }

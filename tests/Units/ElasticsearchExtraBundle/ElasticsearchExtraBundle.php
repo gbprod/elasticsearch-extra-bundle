@@ -6,7 +6,7 @@ use atoum;
 
 /**
  * Tests for bundle
- * 
+ *
  * @author gbprod <contact@gb-prod.fr>
  */
 class ElasticsearchExtraBundle extends atoum
