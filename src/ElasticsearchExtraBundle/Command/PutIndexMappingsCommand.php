@@ -30,6 +30,11 @@ class PutIndexMappingsCommand extends ContainerAwareCommand
                 InputArgument::REQUIRED,
                 'Which index ?'
             )
+            ->addArgument(
+                'type_id',
+                InputArgument::REQUIRED,
+                'Which type ?'
+            )
         ;
     }
 
@@ -37,9 +42,11 @@ class PutIndexMappingsCommand extends ContainerAwareCommand
     {
         $clientId = $input->getArgument('client_id');
         $indexId  = $input->getArgument('index_id');
+        $typeId   = $input->getArgument('type_id');
 
         $output->writeln(sprintf(
-            '<info>Put index <comment>%s</comment> settings for client <comment>%s</comment>...</info>',
+            '<info>Put type <comment>%s</comment> mappings for index <comment>%s</comment> client <comment>%s</comment>...</info>',
+            $typeId,
             $indexId,
             $clientId
         ));
@@ -49,7 +56,7 @@ class PutIndexMappingsCommand extends ContainerAwareCommand
             ->get('gbprod.elasticsearch_extra.put_index_mappings_handler')
         ;
 
-        $handler->handle($clientId, $indexId);
+        $handler->handle($clientId, $indexId, $typeId);
 
         $output->writeln('done');
     }

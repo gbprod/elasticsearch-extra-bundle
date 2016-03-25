@@ -9,7 +9,8 @@
 [![Latest Unstable Version](https://poser.pugx.org/gbprod/elasticsearch-extra-bundle/v/unstable)](https://packagist.org/packages/gbprod/elasticsearch-extra-bundle) 
 [![License](https://poser.pugx.org/gbprod/elasticsearch-extra-bundle/license)](https://packagist.org/packages/gbprod/elasticsearch-extra-bundle)
 
-Extra tools for [m6web/elasticsearch-bundle](https://github.com/M6Web/ElasticsearchBundle).
+Extra tools for managing indices and types.
+Built on top of [m6web/elasticsearch-bundle](https://github.com/M6Web/ElasticsearchBundle).
 
 ## Installation
 
@@ -88,5 +89,5 @@ php app/console elasticsearch:index:put_settings my_client my_index_1
 ### Put index mappings
 
 ```bash
-php app/console elasticsearch:index:put_mappings my_client my_index_1
+php app/console elasticsearch:index:put_mappings my_client my_index_1 my_type
 ```

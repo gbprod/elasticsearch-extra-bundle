@@ -40,30 +40,34 @@ class PutIndexMappingsHandler
      * @param string $clientId
      * @param string $indexId
      */
-    public function handle($clientId, $indexId)
+    public function handle($clientId, $indexId, $typeId)
     {
         $client = $this->clientRepository->get($clientId);
         $config = $this->configurationRepository->get($clientId, $indexId);
 
-        if (null === $client || null === $config) {
+        if ($this->isInvalid($client, $config, $typeId)) {
             throw new \InvalidArgumentException();
         }
-
+        
         $client
             ->indices()
             ->putMapping([
                 'index' => $indexId,
-                'body'  => $this->extractMapping($config),
+                'type'  => $typeId,
+                'body'  => [
+                    $typeId => $config['mappings'][$typeId],
+                ],
             ])
         ;
     }
     
-    private function extractMapping($config)
+    private function isInvalid($client, $config, $typeId)
     {
-        if (isset($config['mappings'])) {
-            return $config['mappings'];
-        }
-        
-        return [];
+        return null === $client 
+            || null === $config 
+            || empty($typeId)
+            || !isset($config['mappings'])
+            || !isset($config['mappings'][$typeId])
+        ;
     }
 }

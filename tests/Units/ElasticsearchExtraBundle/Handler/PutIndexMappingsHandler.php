@@ -19,7 +19,8 @@ class PutIndexMappingsHandler extends atoum
     {
         $config = [
             'mappings' => [
-                'awesome' => 'config'
+                'my_type' => ['config'],
+                'my_type_2' => ['config'],
             ], 
             'foo' => 'bar',
         ];
@@ -31,15 +32,16 @@ class PutIndexMappingsHandler extends atoum
                 ->and($clientRepository = $this->newClientRepository('my_client', $client))
                 ->and($configRepository = $this->newConfigRepository('my_client', 'my_index', $config))
                 ->and($this->newTestedInstance($clientRepository, $configRepository))
-            ->if($this->testedInstance->handle('my_client', 'my_index'))
+            ->if($this->testedInstance->handle('my_client', 'my_index', 'my_type'))
             ->then
                 ->mock($indices)
                     ->call('putMapping')
                         ->withArguments(
                             [
                                 'index' => 'my_index',
+                                'type'  => 'my_type',
                                 'body'  => [
-                                    'awesome' => 'config',
+                                    'my_type' => ['config'],
                                 ],
                             ]
                         )
@@ -123,7 +125,7 @@ class PutIndexMappingsHandler extends atoum
                 ->and($configRepository = $this->newConfigRepository('my_client', 'my_index', $config))
                 ->and($this->newTestedInstance($clientRepository, $configRepository))
             ->exception(function() {
-                    $this->testedInstance->handle('my_client', 'my_index');
+                    $this->testedInstance->handle('my_client', 'my_index', 'my_type');
                 })
                 ->isInstanceOf(\InvalidArgumentException::class)
         ;

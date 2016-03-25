@@ -25,13 +25,14 @@ class PutIndexMappingsCommand extends atoum
                 ->and($input = new ArrayInput([
                     'client_id' => 'my_client', 
                     'index_id'  => 'my_index',
+                    'type_id'   => 'my_type',
                 ]))
                 ->and($output = new OutputInterface())
             ->if($this->testedInstance->run($input, $output))
             ->then
                 ->mock($handler)
                     ->call('handle')
-                        ->withArguments('my_client', 'my_index')
+                        ->withArguments('my_client', 'my_index', 'my_type')
                         ->once()
         ;
     }
