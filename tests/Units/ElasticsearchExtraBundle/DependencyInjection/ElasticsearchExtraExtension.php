@@ -3,12 +3,15 @@
 namespace GBProd\Tests\Units\ElasticsearchExtraBundle\DependencyInjection;
 
 use atoum;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
+use Elasticsearch\Client;
 use GBProd\ElasticsearchExtraBundle\Handler\CreateIndexHandler;
+use GBProd\ElasticsearchExtraBundle\Handler\DeleteIndexHandler;
+use GBProd\ElasticsearchExtraBundle\Handler\PutIndexSettingsHandler;
+use GBProd\ElasticsearchExtraBundle\Handler\PutIndexMappingsHandler;
 use GBProd\ElasticsearchExtraBundle\Repository\ClientRepository;
 use GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository;
-use Elasticsearch\Client;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Tests for Extension class
@@ -32,6 +35,15 @@ class ElasticsearchExtraExtension extends atoum
             ->then
                 ->object($container->get('gbprod.elasticsearch_extra.index_configuration_repository'))
                     ->isInstanceOf(IndexConfigurationRepository::class)
+            ->then
+                ->object($container->get('gbprod.elasticsearch_extra.delete_index_handler'))
+                    ->isInstanceOf(DeleteIndexHandler::class)
+            ->then
+                ->object($container->get('gbprod.elasticsearch_extra.put_index_settings_handler'))
+                    ->isInstanceOf(PutIndexSettingsHandler::class)
+            ->then
+                ->object($container->get('gbprod.elasticsearch_extra.put_index_mappings_handler'))
+                    ->isInstanceOf(PutIndexMappingsHandler::class)
         ;
     }
     

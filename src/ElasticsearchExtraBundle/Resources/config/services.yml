@@ -16,3 +16,9 @@ services:
         arguments:
             - "@gbprod.elasticsearch_extra.client_repository"
             - "@gbprod.elasticsearch_extra.index_configuration_repository"
+
+    gbprod.elasticsearch_extra.put_index_mappings_handler:
+        class: GBProd\ElasticsearchExtraBundle\Handler\PutIndexMappingsHandler
+        arguments:
+            - "@gbprod.elasticsearch_extra.client_repository"
+            - "@gbprod.elasticsearch_extra.index_configuration_repository"
