@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * Configuration
- * 
+ *
  * @author gbprod <contact@gb-prod.fr>
  */
 class Configuration implements ConfigurationInterface
@@ -22,17 +22,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('clients')
-                    ->useAttributeAsKey('id')
+                ->arrayNode('indices')
+                    ->defaultValue([])
                     ->prototype('array')
-                        ->children()
-                            ->arrayNode('indices')
-                                ->defaultValue([])
-                                ->prototype('array')
-                                    ->prototype('variable')->end()
-                                ->end()
-                            ->end()
-                        ->end()
+                        ->prototype('variable')->end()
                     ->end()
                 ->end()
             ->end()
@@ -41,4 +34,4 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 }
-    
+

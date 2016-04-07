@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\Processor;
 
 /**
  * Configuration
- * 
+ *
  * @author gbprod <contact@gb-prod.fr>
  */
 class Configuration extends atoum
@@ -20,18 +20,18 @@ class Configuration extends atoum
             ->if($processed = $this->process($config))
             ->then
                 ->array($processed)
-                    ->hasKey('clients')
-                ->array($processed['clients'])
+                    ->hasKey('indices')
+                ->array($processed['indices'])
                     ->isEmpty()
         ;
     }
-    
+
     protected function process($config)
     {
         $processor = new Processor();
-        
+
         return $processor->processConfiguration(
-            $this->testedInstance, 
+            $this->testedInstance,
             $config
         );
     }
@@ -42,57 +42,50 @@ class Configuration extends atoum
             ->given($this->newTestedInstance)
             ->and($config = [
                 [
-                    'clients' => [
-                        'my_client' => [
-                        ],                        
-                        'my_client_2' => [
+                    'indices' => [
+                        'my_index' => [
+                        ],
+                        'my_index_2' => [
                         ],
                     ]
                 ]
             ])
             ->if($processed = $this->process($config))
             ->then
-                ->array($processed['clients'])
+                ->array($processed['indices'])
                     ->isNotEmpty()
-                    ->hasKey('my_client')
-                ->array($processed['clients']['my_client'])
-                    ->hasKey('indices')
-                ->array($processed['clients']['my_client']['indices'])
-                    ->isEqualTo([])
+                    ->hasKey('my_index')
+                    ->hasKey('my_index_2')
         ;
     }
- 
- 
+
+
     public function testIndexIsVariable()
     {
         $this
             ->given($this->newTestedInstance)
             ->and($config = [
                 [
-                    'clients' => [
-                        'my_client' => [
-                            'indices' => [
-                                'index_1' => [
-                                    'foo' => [
-                                        'bar',
-                                    ],
-                                ],
-                                'index_2' => [
-                                    'fizz' => [
-                                    ],
-                                    'mapping' => [
-                                    ],
-                                ],
-                            ]
+                    'indices' => [
+                        'index_1' => [
+                            'foo' => [
+                                'bar',
+                            ],
+                        ],
+                        'index_2' => [
+                            'fizz' => [
+                            ],
+                            'mapping' => [
+                            ],
                         ],
                     ]
                 ]
             ])
             ->if($processed = $this->process($config))
             ->then
-                ->array($processed['clients']['my_client']['indices'])
+                ->array($processed['indices'])
                     ->hasKey('index_1')
-                ->array($processed['clients']['my_client']['indices']['index_1'])
+                ->array($processed['indices']['index_1'])
                     ->isEqualTo([
                             'foo' => [
                                 'bar',

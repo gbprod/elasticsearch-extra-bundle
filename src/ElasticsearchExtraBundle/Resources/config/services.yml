@@ -2,23 +2,19 @@ services:
     gbprod.elasticsearch_extra.create_index_handler:
         class: GBProd\ElasticsearchExtraBundle\Handler\CreateIndexHandler
         arguments:
-            - "@gbprod.elasticsearch_extra.client_repository"
             - "@gbprod.elasticsearch_extra.index_configuration_repository"
-            
+
     gbprod.elasticsearch_extra.delete_index_handler:
         class: GBProd\ElasticsearchExtraBundle\Handler\DeleteIndexHandler
         arguments:
-            - "@gbprod.elasticsearch_extra.client_repository"
             - "@gbprod.elasticsearch_extra.index_configuration_repository"
-            
+
     gbprod.elasticsearch_extra.put_index_settings_handler:
         class: GBProd\ElasticsearchExtraBundle\Handler\PutIndexSettingsHandler
         arguments:
-            - "@gbprod.elasticsearch_extra.client_repository"
             - "@gbprod.elasticsearch_extra.index_configuration_repository"
 
     gbprod.elasticsearch_extra.put_index_mappings_handler:
         class: GBProd\ElasticsearchExtraBundle\Handler\PutIndexMappingsHandler
         arguments:
-            - "@gbprod.elasticsearch_extra.client_repository"
             - "@gbprod.elasticsearch_extra.index_configuration_repository"

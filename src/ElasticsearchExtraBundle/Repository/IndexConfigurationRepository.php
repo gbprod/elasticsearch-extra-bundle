@@ -4,7 +4,7 @@ namespace GBProd\ElasticsearchExtraBundle\Repository;
 
 /**
  * Repository for index configuration
- * 
+ *
  * @author gbprod <contact@gb-prod.fr>
  */
 class IndexConfigurationRepository
@@ -13,7 +13,7 @@ class IndexConfigurationRepository
      * @var array
      */
     private $config;
-    
+
     /**
      * @param array $config
      */
@@ -21,25 +21,20 @@ class IndexConfigurationRepository
     {
         $this->config = $config;
     }
-    
+
     /**
      * Get client from his name
-     * 
-     * @param string $clientId
-     * @param string $indexId
-     * 
+     *
+     * @param string $index
+     *
      * @return Elasticsearch\Client
      */
-    public function get($clientId, $indexId)
+    public function get($index)
     {
-        if (!isset($this->config[$clientId])) {
-            return null;
-        }
-        
-        if (!isset($this->config[$clientId]['indices'][$indexId])) {
+        if (!isset($this->config[$index])) {
             return null;
         }
 
-        return $this->config[$clientId]['indices'][$indexId];
+        return $this->config[$index];
     }
 }

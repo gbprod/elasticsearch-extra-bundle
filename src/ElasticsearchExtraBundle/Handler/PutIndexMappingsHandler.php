@@ -2,7 +2,7 @@
 
 namespace GBProd\ElasticsearchExtraBundle\Handler;
 
-use GBProd\ElasticsearchExtraBundle\Repository\ClientRepository;
+use Elasticsearch\Client;
 use GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository;
 
 /**
@@ -13,11 +13,6 @@ use GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository;
 class PutIndexMappingsHandler
 {
     /**
-     * @var ClientRepository
-     */
-    private $clientRepository;
-
-    /**
      * @var IndexConfigurationRepository
      */
     private $configurationRepository;
@@ -26,48 +21,43 @@ class PutIndexMappingsHandler
      * @param ClientRepository             $clientRepository
      * @param IndexConfigurationRepository $configurationRepository
      */
-    public function __construct(
-        ClientRepository $clientRepository,
-        IndexConfigurationRepository $configurationRepository
-    ) {
-        $this->clientRepository        = $clientRepository;
+    public function __construct(IndexConfigurationRepository $configurationRepository)
+    {
         $this->configurationRepository = $configurationRepository;
     }
 
     /**
      * Handle index creation command
      *
-     * @param string $clientId
-     * @param string $indexId
+     * @param Client $client
+     * @param string $index
      */
-    public function handle($clientId, $indexId, $typeId)
+    public function handle(Client $client, $index, $type)
     {
-        $client = $this->clientRepository->get($clientId);
-        $config = $this->configurationRepository->get($clientId, $indexId);
+        $config = $this->configurationRepository->get($index);
 
-        if ($this->isInvalid($client, $config, $typeId)) {
+        if ($this->isInvalid($config, $type)) {
             throw new \InvalidArgumentException();
         }
-        
+
         $client
             ->indices()
             ->putMapping([
-                'index' => $indexId,
-                'type'  => $typeId,
+                'index' => $index,
+                'type'  => $type,
                 'body'  => [
-                    $typeId => $config['mappings'][$typeId],
+                    $type => $config['mappings'][$type],
                 ],
             ])
         ;
     }
-    
-    private function isInvalid($client, $config, $typeId)
+
+    private function isInvalid($config, $type)
     {
-        return null === $client 
-            || null === $config 
-            || empty($typeId)
+        return null === $config
+            || empty($type)
             || !isset($config['mappings'])
-            || !isset($config['mappings'][$typeId])
+            || !isset($config['mappings'][$type])
         ;
     }
 }

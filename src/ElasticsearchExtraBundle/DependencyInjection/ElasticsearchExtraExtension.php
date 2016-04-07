@@ -2,6 +2,7 @@
 
 namespace GBProd\ElasticsearchExtraBundle\DependencyInjection;
 
+use GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
@@ -24,7 +25,6 @@ class ElasticsearchExtraExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $this->createIndexConfigurationRepository($config, $container);
-        $this->createClientRepository($config, $container);
 
         $loader = new Loader\YamlFileLoader(
             $container,
@@ -39,37 +39,9 @@ class ElasticsearchExtraExtension extends Extension
         $container
             ->register(
                 'gbprod.elasticsearch_extra.index_configuration_repository',
-                'GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository'
+                IndexConfigurationRepository::class
             )
-            ->addArgument($config['clients'])
+            ->addArgument($config['indices'])
         ;
-    }
-
-    private function createClientRepository(array $config, ContainerBuilder $container)
-    {
-        $container
-            ->register(
-                'gbprod.elasticsearch_extra.client_repository',
-                'GBProd\ElasticsearchExtraBundle\Repository\ClientRepository'
-            )
-            ->addArgument(
-                $this->getClientsReferences($config)
-            )
-        ;
-    }
-
-    private function getClientsReferences(array $config)
-    {
-        $clients = [];
-        foreach (array_keys($config['clients']) as $clientId) {
-            $clients[$clientId] = new Reference(
-                sprintf(
-                    'm6web_elasticsearch.client.%s',
-                    $clientId
-                )
-            );
-        }
-
-        return $clients;
     }
 }

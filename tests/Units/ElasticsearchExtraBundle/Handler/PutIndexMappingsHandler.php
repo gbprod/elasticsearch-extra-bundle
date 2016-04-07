@@ -10,7 +10,7 @@ use mock\GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository
 
 /**
  * Tests for PutIndexMappingssHandler
- * 
+ *
  * @author gbprod <contact@gb-prod.fr>
  */
 class PutIndexMappingsHandler extends atoum
@@ -21,18 +21,17 @@ class PutIndexMappingsHandler extends atoum
             'mappings' => [
                 'my_type' => ['config'],
                 'my_type_2' => ['config'],
-            ], 
+            ],
             'foo' => 'bar',
         ];
-        
+
         $this
             ->given($config)
                 ->and($indices = $this->newIndices())
                 ->and($client = $this->newClient($indices))
-                ->and($clientRepository = $this->newClientRepository('my_client', $client))
-                ->and($configRepository = $this->newConfigRepository('my_client', 'my_index', $config))
-                ->and($this->newTestedInstance($clientRepository, $configRepository))
-            ->if($this->testedInstance->handle('my_client', 'my_index', 'my_type'))
+                ->and($configRepository = $this->newConfigRepository('my_index', $config))
+                ->and($this->newTestedInstance($configRepository))
+            ->if($this->testedInstance->handle($client, 'my_index', 'my_type'))
             ->then
                 ->mock($indices)
                     ->call('putMapping')
@@ -48,7 +47,7 @@ class PutIndexMappingsHandler extends atoum
                         ->once()
         ;
     }
-    
+
     private function newIndices()
     {
         $this->mockGenerator->shuntParentClassCalls();
@@ -56,78 +55,40 @@ class PutIndexMappingsHandler extends atoum
 
         return new IndicesNamespace();
     }
-    
+
     private function newClient($indices)
     {
         $this->mockGenerator->shuntParentClassCalls();
         $this->mockGenerator->orphanize('__construct');
 
         $client = new Client();
-        
+
         $this->calling($client)->indices = function() use ($indices) {
             return $indices;
         };
-        
+
         return $client;
     }
-    
-    private function newClientRepository($clientId, $client)
-    {
-        $this->mockGenerator->shuntParentClassCalls();
-        $this->mockGenerator->orphanize('__construct');
 
-        $clientRepository = new ClientRepository();
-        
-        $this->calling($clientRepository)->get = 
-            function($id) use ($clientId, $client) {
-                if ($id == $clientId) {
-                    return $client;
-                }
-                
-                return null;
-            }
-        ;
-
-        $this->mockGenerator->unshuntParentClassCalls();
-
-        return $clientRepository;
-    }
-    
-    private function newConfigRepository($clientId, $indexId, $config)
+    private function newConfigRepository($index, $config)
     {
         $this->mockGenerator->shuntParentClassCalls();
         $this->mockGenerator->orphanize('__construct');
 
         $configRepository = new IndexConfigurationRepository();
-        
-        $this->calling($configRepository)->get = 
-            function($clientIdParam, $indexIdParam) use ($clientId, $indexId, $config) {
-                if ($clientId == $clientIdParam && $indexId == $indexIdParam) {
+
+        $this->calling($configRepository)->get =
+            function($indexParam) use ($index, $config) {
+                if ($index == $indexParam) {
                     return $config;
                 }
-                
+
                 return null;
             }
         ;
 
         $this->mockGenerator->unshuntParentClassCalls();
-        
+
         return $configRepository;
-    }
-    
-    public function testHandleThrowExceptionIfNoClient()
-    {
-        $this
-            ->given($config = ['my' => ['awesome' => 'config']])
-                ->and($indices = $this->newIndices())
-                ->and($client = $this->newClient($indices))
-                ->and($clientRepository = $this->newClientRepository('my_client', null))
-                ->and($configRepository = $this->newConfigRepository('my_client', 'my_index', $config))
-                ->and($this->newTestedInstance($clientRepository, $configRepository))
-            ->exception(function() {
-                    $this->testedInstance->handle('my_client', 'my_index', 'my_type');
-                })
-                ->isInstanceOf(\InvalidArgumentException::class)
-        ;
     }
 }

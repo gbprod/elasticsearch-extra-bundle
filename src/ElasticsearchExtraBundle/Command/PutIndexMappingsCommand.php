@@ -2,7 +2,6 @@
 
 namespace GBProd\ElasticsearchExtraBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -13,42 +12,30 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @author gbprod <contact@gb-prod.fr>
  */
-class PutIndexMappingsCommand extends ContainerAwareCommand
+class PutIndexMappingsCommand extends ElasticsearchAwareCommand
 {
     protected function configure()
     {
         $this
             ->setName('elasticsearch:index:put_mappings')
             ->setDescription('Put index mappings from configuration')
-            ->addArgument(
-                'client_id',
-                InputArgument::REQUIRED,
-                'Which client ?'
-            )
-            ->addArgument(
-                'index_id',
-                InputArgument::REQUIRED,
-                'Which index ?'
-            )
-            ->addArgument(
-                'type_id',
-                InputArgument::REQUIRED,
-                'Which type ?'
-            )
+            ->addArgument('index', InputArgument::REQUIRED, 'Which index ?')
+            ->addArgument('type', InputArgument::REQUIRED, 'Which type ?')
+            ->addOption('client', null, InputOption::VALUE_REQUIRED, 'Client to use (if not default)', 'default')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $clientId = $input->getArgument('client_id');
-        $indexId  = $input->getArgument('index_id');
-        $typeId   = $input->getArgument('type_id');
+        $client = $this->getClient($input->getOption('client'));
+        $index  = $input->getArgument('index');
+        $type   = $input->getArgument('type');
 
         $output->writeln(sprintf(
             '<info>Put type <comment>%s</comment> mappings for index <comment>%s</comment> client <comment>%s</comment>...</info>',
-            $typeId,
-            $indexId,
-            $clientId
+            $type,
+            $index,
+            $input->getOption('client')
         ));
 
         $handler = $this
@@ -56,7 +43,7 @@ class PutIndexMappingsCommand extends ContainerAwareCommand
             ->get('gbprod.elasticsearch_extra.put_index_mappings_handler')
         ;
 
-        $handler->handle($clientId, $indexId, $typeId);
+        $handler->handle($client, $index, $type);
 
         $output->writeln('done');
     }

@@ -2,7 +2,7 @@
 
 namespace GBProd\ElasticsearchExtraBundle\Handler;
 
-use GBProd\ElasticsearchExtraBundle\Repository\ClientRepository;
+use Elasticsearch\Client;
 use GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository;
 
 /**
@@ -13,46 +13,36 @@ use GBProd\ElasticsearchExtraBundle\Repository\IndexConfigurationRepository;
 class CreateIndexHandler
 {
     /**
-     * @var ClientRepository
-     */
-    private $clientRepository;
-
-    /**
      * @var IndexConfigurationRepository
      */
     private $configurationRepository;
 
     /**
-     * @param ClientRepository             $clientRepository
      * @param IndexConfigurationRepository $configurationRepository
      */
-    public function __construct(
-        ClientRepository $clientRepository,
-        IndexConfigurationRepository $configurationRepository
-    ) {
-        $this->clientRepository        = $clientRepository;
+    public function __construct(IndexConfigurationRepository $configurationRepository)
+    {
         $this->configurationRepository = $configurationRepository;
     }
 
     /**
      * Handle index creation command
      *
-     * @param string $clientId
-     * @param string $indexId
+     * @param Client $client
+     * @param string $index
      */
-    public function handle($clientId, $indexId)
+    public function handle(Client $client, $index)
     {
-        $client = $this->clientRepository->get($clientId);
-        $config = $this->configurationRepository->get($clientId, $indexId);
+        $config = $this->configurationRepository->get($index);
 
-        if (null === $client || null === $config) {
+        if (null === $config) {
             throw new \InvalidArgumentException();
         }
 
         $client
             ->indices()
             ->create([
-                'index' => $indexId,
+                'index' => $index,
                 'body'  => $config,
             ])
         ;
