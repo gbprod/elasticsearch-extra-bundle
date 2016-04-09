@@ -32,7 +32,8 @@ class PutIndexMappingsCommand extends ElasticsearchAwareCommand
         $type   = $input->getArgument('type');
 
         $output->writeln(sprintf(
-            '<info>Put type <comment>%s</comment> mappings for index <comment>%s</comment> client <comment>%s</comment>...</info>',
+            '<info>Put type <comment>%s</comment> mappings for index <comment>%s</comment> ' .
+            'client <comment>%s</comment>...</info>',
             $type,
             $index,
             $input->getOption('client')

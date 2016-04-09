@@ -18,7 +18,6 @@ class PutIndexMappingsHandler
     private $configurationRepository;
 
     /**
-     * @param ClientRepository             $clientRepository
      * @param IndexConfigurationRepository $configurationRepository
      */
     public function __construct(IndexConfigurationRepository $configurationRepository)

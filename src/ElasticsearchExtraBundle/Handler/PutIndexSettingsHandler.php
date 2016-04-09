@@ -34,7 +34,7 @@ class PutIndexSettingsHandler
      */
     public function handle($client, $index)
     {
-        $config = $this->configurationRepository->get($client, $index);
+        $config = $this->configurationRepository->get($index);
 
         if (null === $client || null === $config) {
             throw new \InvalidArgumentException();
@@ -50,7 +50,10 @@ class PutIndexSettingsHandler
             ])
         ;
     }
-
+    
+    /**
+     * @return array
+     */
     private function extractSettings($config)
     {
         if (isset($config['settings'])) {
