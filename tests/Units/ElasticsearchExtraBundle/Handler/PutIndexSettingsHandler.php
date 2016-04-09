@@ -28,7 +28,7 @@ class PutIndexSettingsHandler extends atoum
             ->given($config)
                 ->and($indices = $this->newIndices())
                 ->and($client = $this->newClient($indices))
-                ->and($configRepository = $this->newConfigRepository($client, 'my_index', $config))
+                ->and($configRepository = $this->newConfigRepository('my_index', $config))
                 ->and($this->newTestedInstance($configRepository))
             ->if($this->testedInstance->handle($client, 'my_index'))
             ->then
@@ -68,29 +68,7 @@ class PutIndexSettingsHandler extends atoum
         return $client;
     }
 
-    private function newClientRepository($clientId, $client)
-    {
-        $this->mockGenerator->shuntParentClassCalls();
-        $this->mockGenerator->orphanize('__construct');
-
-        $clientRepository = new ClientRepository();
-
-        $this->calling($clientRepository)->get =
-            function($id) use ($clientId, $client) {
-                if ($id == $clientId) {
-                    return $client;
-                }
-
-                return null;
-            }
-        ;
-
-        $this->mockGenerator->unshuntParentClassCalls();
-
-        return $clientRepository;
-    }
-
-    private function newConfigRepository($clientId, $indexId, $config)
+    private function newConfigRepository($index, $config)
     {
         $this->mockGenerator->shuntParentClassCalls();
         $this->mockGenerator->orphanize('__construct');
@@ -98,8 +76,8 @@ class PutIndexSettingsHandler extends atoum
         $configRepository = new IndexConfigurationRepository();
 
         $this->calling($configRepository)->get =
-            function($clientIdParam, $indexIdParam) use ($clientId, $indexId, $config) {
-                if ($clientId == $clientIdParam && $indexId == $indexIdParam) {
+            function($indexParam) use ($index, $config) {
+                if ($index == $indexParam) {
                     return $config;
                 }
 
