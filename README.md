@@ -1,5 +1,7 @@
 # ElasticsearchExtraBundle
 
+I will not maintain this bundle anymore, prefer [elastica-extra-bundle](https://github.com/gbprod/elastica-extra-bundle).
+
 [![Build Status](https://travis-ci.org/gbprod/elasticsearch-extra-bundle.svg?branch=master)](https://travis-ci.org/gbprod/elasticsearch-extra-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/gbprod/elasticsearch-extra-bundle/?branch=master)
