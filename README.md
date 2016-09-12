@@ -1,5 +1,7 @@
 # ElasticsearchExtraBundle
 
+![stability-deprecated](https://img.shields.io/badge/stability-deprecated-red.svg)
+
 I will not maintain this bundle anymore, prefer [elastica-extra-bundle](https://github.com/gbprod/elastica-extra-bundle).
 
 [![Build Status](https://travis-ci.org/gbprod/elasticsearch-extra-bundle.svg?branch=master)](https://travis-ci.org/gbprod/elasticsearch-extra-bundle)
